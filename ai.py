@@ -1,16 +1,42 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
-st.title('AI model that actually works')
-
-
 import ollama
 
-# Set up the page title
-st.set_page_config(page_title="Local Ollama Chat", page_icon="🤖")
-st.title("AI Chatbot")
+# 1. Set page config MUST be the first Streamlit command
+st.set_page_config(page_title="T.A.S AI", page_icon="🤖")
 
+# 2. Inject custom CSS for the purple gradient background and white text
+custom_css = """
+<style>
+/* Target the main application container */
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(135deg, #f03830 0%, #7630f0 100%);
+    color: white;
+}
+
+/* Make the top header area transparent */
+[data-testid="stHeader"] {
+    background-color: transparent;
+}
+
+/* Force standard text elements to be white */
+h1, h2, h3, h4, h5, h6, p, span, div, label {
+    color: white !important;
+}
+
+/* Slightly darken the chat input box so it stands out, but keep text white */
+[data-testid="stChatInput"] {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+</style>
+"""
+st.markdown(custom_css, unsafe_allow_html=True)
+
+# 3. Rest of your application UI
+st.title("T.A.S AI 🖥️")
+st.markdown("##### Your friendly neighborhood AI personal assistant")
 
 MODEL_NAME = "qwen2.5"
 
