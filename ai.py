@@ -10,23 +10,22 @@ st.set_page_config(page_title="T.A.S AI", page_icon="🤖")
 # Inject custom CSS
 custom_css = """
 <style>
-/* Target the main application container */
 [data-testid="stAppViewContainer"] {
     background: linear-gradient(135deg, #f03830 0%, #7630f0 100%);
     color: white;
 }
 
-/* Make the top header area transparent */
+/* top header area transparent */
 [data-testid="stHeader"] {
     background-color: transparent;
 }
 
-/* Force standard text elements to be white */
+/* white text */
 h1, h2, h3, h4, h5, h6, p, span, div, label {
     color: white !important;
 }
 
-/* Slightly darken the chat input box so it stands out, but keep text white */
+/* darken the chat input box */
 [data-testid="stChatInput"] {
     background-color: rgba(0, 0, 0, 0.2) !important;
     border-color: rgba(255, 255, 255, 0.3) !important;
