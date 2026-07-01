@@ -71,16 +71,15 @@ if prompt := st.chat_input("Ask me anything or attach a PDF...", accept_file=Tru
     if hasattr(prompt, "files") and prompt.files:
         for uploaded_file in prompt.files:
             if uploaded_file.name.lower().endswith('.pdf'):
-                with st.spinner(f"Extracting & Indexing text from {uploaded_file.name}..."):
+                with st.spinner(f"Extracting text from {uploaded_file.name}..."):
                     try:
                         # Extract the text
                         pdf_reader = PyPDF2.PdfReader(uploaded_file)
                         pdf_text = "".join([page.extract_text() + "\n" for page in pdf_reader.pages if page.extract_text()])
                         
-                        # --- CHUNKING & RAG INDEXING ---
                         file_chunks = chunk_text(pdf_text)
                         
-                        # Generate vector embeddings via Ollama
+                        # vector embeddings
                         file_embeddings = []
                         for chunk in file_chunks:
                             response = ollama.embeddings(model=EMBED_MODEL, prompt=chunk)
@@ -107,7 +106,7 @@ if prompt := st.chat_input("Ask me anything or attach a PDF...", accept_file=Tru
         with st.chat_message("user"):
             st.markdown(user_text)
 
-        # --- RETRIEVAL PHASE ---
+        # RETRIEVAL
         context_str = ""
         if st.session_state.pdf_embeddings and st.session_state.pdf_chunks:
             with st.spinner("Searching document data..."):
